@@ -1,6 +1,7 @@
 const express = require("express");
 const { connect } = require("./config/database");
 const authRoutes = require("./routes/Auth")
+const shipmentRoutes = require("./routes/Shipment")
 const app = express();
 app.use(express.json())
 const cors = require("cors");
@@ -15,6 +16,7 @@ app.listen(PORT , () => {
 })
 
 app.use("/api/v1/auth" , authRoutes)
+app.use("/api/v1/shipment" , shipmentRoutes)
 
 app.get("/" , (req , res) => {
     res.send("App is up and running")
