@@ -126,3 +126,18 @@ module.exports.allShipments = async (req , res) => {
         });
     }
 }
+
+module.exports.shipmentById = async (req , res) => {
+    const { shipmentId } = req.params;
+    try {        
+        const shipment = await Shipment.findById({_id : shipmentId});
+        return res.status(200).json({
+            message : "Shipment fetched successfully !",
+            shipment
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Failed to fetch all the shipment',
+        });
+    }
+}
