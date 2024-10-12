@@ -15,6 +15,14 @@ module.exports.addShipment = async (req , res) => {
             status,
         } = req.body;
 
+        const existingShipment = await Shipment.findOne({shipmentNumber});
+        if(existingShipment) {
+            return res.status(411).json({
+                success :  false,
+                message : "Shipment Number already exist please create a unique shipment"
+            })
+        }
+
         if (!shipmentNumber ||
             !transportType ||
             !portOfLoading ||
@@ -47,6 +55,8 @@ module.exports.addShipment = async (req , res) => {
             shipment: newShipment,
         });
     } catch (error) {
+        console.log(error);
+        
         return res.status(500).json({
             message: 'Failed to create shipment',
         });
