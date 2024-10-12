@@ -55,6 +55,8 @@ module.exports.signin = async (req, res) => {
       id: user._id,
     };
 
+    
+
     if (await bcrypt.compare(password, user.password)) {
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
         expiresIn: "24h",
@@ -66,6 +68,11 @@ module.exports.signin = async (req, res) => {
         user,
         token,
       });
+    } else {
+      return res.status(411).json({
+        success : false,
+        message : "Incorrect Password"
+      })
     }
   } catch (e) {
     console.log(e);
