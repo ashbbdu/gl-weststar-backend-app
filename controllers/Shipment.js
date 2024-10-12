@@ -102,7 +102,7 @@ module.exports.deleteShipment = async (req , res) => {
 
         const deleteShipment = await Shipment.findByIdAndDelete({_id : shipmentId});
         return res.status(200).json({
-            success : false,
+            success : true,
             msg : "Shipment deleted successfully"
         })
     } catch (error) {
@@ -115,7 +115,7 @@ module.exports.deleteShipment = async (req , res) => {
 
 module.exports.allShipments = async (req , res) => {
     try {        
-        const shipments = await Shipment.find();
+        const shipments = await Shipment.find().sort({ createdAt: -1 });
         return res.status(200).json({
             message : "Shipments fetched successfully !",
             shipments
